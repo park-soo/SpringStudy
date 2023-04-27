@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.study.springboot.dao.IBasicBbsDao;
-import com.study.springboot.service.BasicBbsService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +22,7 @@ public class MainController {
 	private Logger log1 = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	BasicBbsService service;
+	IBasicBbsDao dao;
 
 	@RequestMapping("/")
 	public String root() {
@@ -34,7 +33,7 @@ public class MainController {
 	
 	@RequestMapping("/list")
 	public String userlist(Model model) {
-		model.addAttribute("list",service.getList());
+		model.addAttribute("list",dao.listDao());
 		return "list";
 	}
 	@RequestMapping("/write")
@@ -51,7 +50,7 @@ public class MainController {
 		map.put("writer", wri);
 		map.put("title", tit);
 		map.put("content", con);
-		int res = service.writePost(map);
+		int res = dao.writeDao(map);
 		
 		System.out.println("write:"+res);
 		return "redirect:list";
@@ -60,13 +59,13 @@ public class MainController {
 	@RequestMapping("/view")
 	public String detailView(HttpServletRequest req, Model model) {
 		int uId = Integer.parseInt(req.getParameter("id"));
-		model.addAttribute("dto",service.getView(uId));
+		model.addAttribute("dto",dao.viewDao(uId));
 		return "view";
 	}
 	
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest req, Model model) {
-		service.deletePost((Integer.parseInt(req.getParameter("id"))));
+		dao.deleteDao(Integer.parseInt(req.getParameter("id")));
 		return "redirect:list";
 	}
 	

@@ -18,6 +18,7 @@ public interface IBasicBbsDao {
 	public int writeDao(Map<String, String> map);
 	//게시물 삭제
 	public int deleteDao(@Param("_id") int id);
+	
 	//전체 게시물 숫자
 	public int postCount();
 

@@ -43,3 +43,7 @@ Controller - 사용자 interface를 담당
 -   -   @EnableAutoConfiguration(application context 관련 자동 설정)
 -   -   @ComponentScan
 -   (@Component @Configuration이 붙은 클래스를 스캔하여 빈 등록)
+
+spring security
+
+제공되어 있는 시큐리티를
